@@ -32,6 +32,20 @@
         .hidden {
             display: none;
         }
+
+        .cart-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff8c00;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            z-index: 1000;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +75,7 @@
 <div class="container">
     <!-- Configurator -->
     <section id="configurator">
-        <div class="order-text">Configureer uw rolluik <span>✔</span></div>
+        <div class="order-text">Configureer uw rolluik <span>✓</span></div>
         <div class="configurator-container">
             <h3>Configureer uw rolluik</h3>
 
@@ -237,6 +251,11 @@
         <button id="checkout-button" onclick="checkout();">Ga naar afrekenen</button>
     </div>
 </div>
+
+<!-- Winkelwagenknop voor kleine schermen -->
+<button class="cart-button" onclick="openCart()">
+    Winkelwagen (€0.00, 0 producten)
+</button>
 
 <!-- Footer -->
 <footer>
