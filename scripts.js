@@ -6,7 +6,7 @@ function updateSwitchOptions() {
     const options = Array.from(switchType.querySelectorAll('option'));
 
     // Reset alle opties
-    options.forEach(option => option.classList.remove('hidden'));
+    options.forEach(option => option.style.display = 'block');
 
     let allowedSwitches = [];
 
@@ -64,12 +64,17 @@ function updateSwitchOptions() {
     // Filter opties
     options.forEach(option => {
         if (!allowedSwitches.includes(option.value)) {
-            option.classList.add('hidden');
+            option.style.display = 'none';
         }
     });
 
     // Reset schakelaar naar "geen"
     switchType.value = "geen";
+
+    // Forceer hertekening voor Safari
+    switchType.style.display = 'none';
+    switchType.offsetHeight; // Trigger hertekening
+    switchType.style.display = '';
 
     // Controleer en pas breedte aan als nodig
     const widthInput = document.getElementById('width');
@@ -83,12 +88,6 @@ function updateSwitchOptions() {
         showAdjustmentMessage(motorTypeElement, `De breedte is aangepast naar ${maxWidth} cm om te voldoen aan de maximale vereisten.`);
     }
 }
-
-// Voeg CSS toe om verborgen opties te verbergen
-// Voeg dit toe aan je CSS-bestand of style-tag:
-// .hidden {
-//     display: none;
-// }
 
 // Stel standaardmotor in en filter opties bij laden van de pagina
 function initializeForm() {
