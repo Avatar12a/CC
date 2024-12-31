@@ -61,14 +61,17 @@ header {
     justify-content: space-between;
     align-items: center;
     color: white;
-    height: 65px;
-    position: relative;
+    height: auto;
+    flex-wrap: wrap; /* Zorg dat elementen naar de volgende regel kunnen gaan */
+}
+
+header .logo {
+    display: block;
 }
 
 header .logo img {
-    max-height: 140px;
-    position: absolute;
-    top: -35px;
+    max-height: 65px; /* Beperk de hoogte van het logo */
+    margin: 0 auto; /* Centreer het logo */
 }
 
 nav ul {
@@ -76,6 +79,7 @@ nav ul {
     display: flex;
     gap: 20px;
     padding: 0;
+    flex-wrap: wrap; /* Laat navigatie naar de volgende regel gaan op kleine schermen */
 }
 
 nav ul li a {
@@ -255,9 +259,19 @@ nav ul li a i {
 }
 
 @media (max-width: 768px) {
+    header {
+        display: none; /* Verberg de hele header inclusief logo */
+    }
+
     .form-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+
+    .configurator-container {
+        margin-top: 10px;
+        padding: 15px;
+        gap: 10px;
     }
 }
 
