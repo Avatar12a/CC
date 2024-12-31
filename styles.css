@@ -1,0 +1,471 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fffacd; /* Rustgevend geel als achtergrond */
+    color: #333;
+}
+
+/* Succesmelding */
+#success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Foutmelding */
+#error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 10px; /* Correcte positie boven de invoervelden */
+    text-align: center;
+}
+
+/* Foutmeldingen naast de prijs */
+#input-error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Verborgen elementen */
+.hidden {
+    display: none;
+}
+
+/* Formulier veld met rode rand bij fout */
+input[type="number"].error,
+select.error {
+    border: 2px solid red;
+}
+
+/* Menu Header */
+header {
+    background-color: #ff8c00;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    height: 65px;
+    position: relative;
+}
+
+header .logo img {
+    max-height: 140px;
+    position: absolute;
+    top: -35px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a i {
+    margin-right: 8px;
+}
+
+/* Banner bovenaan */
+.banner {
+    background-color: #ff8c00;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.banner span {
+    color: green;
+}
+
+/* Nieuwe extra banner boven de oranje banner */
+.new-banner {
+    background-color: #fffacd;
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Nieuwe sectie voor "Bestel makkelijk online" tekst */
+.order-text {
+    text-align: center;
+    font-size: 24px;
+    color: black;
+    font-weight: bold;
+    padding: 20px 0;
+}
+
+.order-text span {
+    color: green;
+}
+
+/* Product secties */
+.content-section {
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Grid voor de categorieën met producten */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px;
+}
+
+.product {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+}
+
+.product img {
+    max-width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+.product h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.product p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.product button {
+    background-color: #ff8c00;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Container voor de info blokken */
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.info-block {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    flex: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.info-block .first-line {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.info-block p {
+    display: flex;
+    align-items: baseline;
+    margin: 10px 0;
+}
+
+.info-block p .green-checkmark {
+    color: green;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.info-block p span {
+    font-size: 14px;
+}
+
+/* Configurator container */
+.configurator-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.configurator-container h3 {
+    text-align: center;
+    color: black;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Formulier grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Formuliergroepen */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Prijsweergave */
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    color: #333;
+}
+
+/* Knop styling */
+button {
+    background-color: #ff8c00;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #e67e00;
+}
+
+/* Responsive aanpassing voor kleinere schermen */
+@media (max-width: 768px) {
+    .info-container {
+        flex-direction: column;
+    }
+
+    .configurator-container {
+        gap: 15px;
+    }
+}
+
+/* Footer styling */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Winkelwagen Sidebar */
+.cart-sidebar {
+    flex: 1;
+    position: sticky;
+    top: 20px;
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.cart-sidebar ul,
+.cart-sidebar ol {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.cart-item-details {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.cart-item-title {
+    font-size: 1em;
+    font-weight: bold;
+    color: #444;
+}
+
+.cart-item-price {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-controls button {
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    color: black;
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.quantity-controls button:hover {
+    background: #e0e0e0;
+}
+
+.cart-item .remove-item {
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    color: black;
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cart-item .remove-item:hover {
+    background: #e0e0e0;
+}
+
+.cart-quantity {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart-quantity:focus {
+    border-color: #888;
+}
+
+#total-price {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: right;
+    margin-top: 20px;
+    color: #333;
+}
+
+button#add-to-cart-button {
+    background: #ff8c00;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1em;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button#add-to-cart-button:hover {
+    background: #e67e00;
+}
+
+/* Specifieke stijl voor het prullenbakicoon */
+.delete-btn {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: darkred;
+}
