@@ -259,8 +259,12 @@ nav ul li a i {
 }
 
 @media (max-width: 768px) {
-    header {
-        display: none; /* Verberg de hele header inclusief logo */
+    header .logo {
+        display: none; /* Verberg alleen het logo */
+    }
+
+    .banner {
+        display: flex; /* Toon de oranje banner opnieuw */
     }
 
     .form-grid {
