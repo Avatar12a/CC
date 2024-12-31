@@ -267,12 +267,25 @@ nav ul li a i {
         display: flex; /* Toon de oranje banner opnieuw */
     }
 
+    .cart-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 300px;
+        height: 100vh;
+        z-index: 1000;
+        background: white;
+        border-left: 1px solid #ccc;
+        overflow-y: auto;
+    }
+
     .form-grid {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
     .configurator-container {
+        margin-right: 320px; /* Ruimte voor de winkelwagen */
         margin-top: 10px;
         padding: 15px;
         gap: 10px;
