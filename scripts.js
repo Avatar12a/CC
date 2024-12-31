@@ -380,13 +380,14 @@ function updateCart() {
                     <button onclick="incrementItem(${index})">+</button>
                 </div>
             </div>
-            <button class="remove-item delete-btn" onclick="removeItem(${index})">&#10005;</button>
+            <button class="remove-item delete-btn" onclick="removeItem(${index})">&times;</button>
         `;
         cartItems.appendChild(cartItem);
         total += item.price * item.quantity;
     });
 
     document.getElementById('total-price').innerText = `Totaal: €${total.toFixed(2)}`;
+    updateCartButton(); // Zorg dat de knop wordt bijgewerkt
 }
 
 // Item verwijderen
@@ -411,19 +412,28 @@ function decrementItem(index) {
     updateCart();
 }
 
-// Eventlisteners voor directe prijsupdate
-const inputsToUpdatePrice = [
-    'width', 'height', 'motor-type', 'switch-type', 'false-windowsill', 'installation', 'operation-side', 'casing-color', 'guide-color', 'slat-color', 'casing-type', 'guide-type'
-];
-
-inputsToUpdatePrice.forEach(id => {
-    const element = document.getElementById(id);
-    if (element) {
-        element.addEventListener('input', () => {
-            calculatePrice();
-            if (id === 'width' || id === 'height') {
-                element.style.borderColor = ''; // Reset rode rand bij invoer
-            }
-        });
+// Winkelwagenknop bijwerken
+function updateCartButton() {
+    const totalPrice = document.getElementById('total-price').textContent || '€0.00';
+    const cartItems = document.querySelectorAll('#cart-items .cart-item').length;
+    const cartButton = document.querySelector('.cart-button');
+    if (cartButton) {
+        cartButton.innerHTML = `Winkelwagen (${totalPrice}, ${cartItems} producten)`;
     }
+}
+
+// Winkelwagen openen/sluiten voor kleine schermen
+function openCart() {
+    const cartSidebar = document.querySelector('.cart-sidebar');
+    if (cartSidebar) {
+        cartSidebar.classList.toggle('hidden');
+    }
+}
+
+// Eventlistener voor winkelwagenknop bijwerken
+document.addEventListener('DOMContentLoaded', () => {
+    updateCartButton();
+    document.getElementById('add-to-cart-button').addEventListener('click', () => {
+        updateCartButton();
+    });
 });
