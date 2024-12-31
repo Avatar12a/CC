@@ -2,79 +2,74 @@
 function updateSwitchOptions() {
     const motorType = document.getElementById('motor-type').value;
     const switchType = document.getElementById('switch-type');
-    const motorTypeElement = document.getElementById('motor-type');
-    const options = Array.from(switchType.querySelectorAll('option'));
 
-    // Reset alle opties
-    options.forEach(option => option.style.display = 'block');
+    // Valide opties voor verschillende motortypes
+    const switchOptions = {
+        "somfy-draadloos-rts": [
+            { value: "geen", text: "Geen" },
+            { value: "situo-rts-1kanaal", text: "Situo RTS 1-kanaal" },
+            { value: "situo-rts-5kanaals", text: "Situo RTS 5-kanaals" },
+            { value: "smoove-origin-rts-1", text: "Smoove Origin RTS 1" }
+        ],
+        "somfy-draadloos-io": [
+            { value: "geen", text: "Geen" },
+            { value: "situo-1-pure-io", text: "Situo 1 Pure IO" },
+            { value: "situo-5-pure-io", text: "Situo 5 Pure IO" },
+            { value: "smoove-origin-1-io", text: "Smoove Origin 1 IO" }
+        ],
+        "somfy-solar-rts": [
+            { value: "geen", text: "Geen" },
+            { value: "situo-rts-1kanaal", text: "Situo RTS 1-kanaal" },
+            { value: "situo-rts-5kanaals", text: "Situo RTS 5-kanaals" },
+            { value: "smoove-origin-rts-1", text: "Smoove Origin RTS 1" }
+        ],
+        "somfy-solar-io": [
+            { value: "geen", text: "Geen" },
+            { value: "situo-1-pure-io", text: "Situo 1 Pure IO" },
+            { value: "situo-5-pure-io", text: "Situo 5 Pure IO" },
+            { value: "smoove-origin-1-io", text: "Smoove Origin 1 IO" }
+        ],
+        "somfy-ilmo": [
+            { value: "geen", text: "Geen" },
+            { value: "opbouw-draaischakelaar", text: "Opbouw draaischakelaar" },
+            { value: "inbouw-draaischakelaar", text: "Inbouw draaischakelaar" }
+        ],
+        "huismerk": [
+            { value: "geen", text: "Geen" },
+            { value: "opbouw-draaischakelaar", text: "Opbouw draaischakelaar" },
+            { value: "inbouw-draaischakelaar", text: "Inbouw draaischakelaar" }
+        ],
+        "huismerk-afstandbediening": [
+            { value: "geen", text: "Geen" },
+            { value: "huismerk-afstandbediening-1kanaal", text: "Standaard afstandsbediening 1-kanaal" },
+            { value: "huismerk-afstandbediening-5kanaals", text: "Standaard afstandsbediening 5-kanaals" },
+            { value: "draadloze-muurschakelaar-1kanaal", text: "Draadloze muurschakelaar 1-kanaal" }
+        ],
+        "huismerk-zonne-energie": [
+            { value: "geen", text: "Geen" },
+            { value: "huismerk-afstandbediening-1kanaal", text: "Standaard afstandsbediening 1-kanaal" },
+            { value: "huismerk-afstandbediening-5kanaals", text: "Standaard afstandsbediening 5-kanaals" },
+            { value: "draadloze-muurschakelaar-1kanaal", text: "Draadloze muurschakelaar 1-kanaal" }
+        ],
+        "bandbediening": [
+            { value: "geen", text: "Geen" }
+        ]
+    };
 
-    let allowedSwitches = [];
+    // Reset opties
+    switchType.innerHTML = "";
 
-    if (motorType === "somfy-draadloos-rts") {
-        allowedSwitches = [
-            "geen",
-            "situo-rts-1kanaal",
-            "situo-rts-5kanaals",
-            "smoove-origin-rts-1"
-        ];
-    } else if (motorType === "somfy-draadloos-io") {
-        allowedSwitches = [
-            "geen",
-            "situo-1-pure-io",
-            "situo-5-pure-io",
-            "smoove-origin-1-io"
-        ];
-    } else if (motorType === "somfy-solar-rts") {
-        allowedSwitches = [
-            "geen",
-            "situo-rts-1kanaal",
-            "situo-rts-5kanaals",
-            "smoove-origin-rts-1"
-        ];
-    } else if (motorType === "somfy-solar-io") {
-        allowedSwitches = [
-            "geen",
-            "situo-1-pure-io",
-            "situo-5-pure-io",
-            "smoove-origin-1-io"
-        ];
-    } else if (motorType === "somfy-ilmo") {
-        allowedSwitches = [
-            "geen",
-            "opbouw-draaischakelaar",
-            "inbouw-draaischakelaar"
-        ];
-    } else if (motorType === "huismerk") {
-        allowedSwitches = [
-            "geen",
-            "opbouw-draaischakelaar",
-            "inbouw-draaischakelaar"
-        ];
-    } else if (motorType === "huismerk-afstandbediening" || motorType === "huismerk-zonne-energie") {
-        allowedSwitches = [
-            "geen",
-            "huismerk-afstandbediening-1kanaal",
-            "huismerk-afstandbediening-5kanaals",
-            "draadloze-muurschakelaar-1kanaal"
-        ];
-    } else if (motorType === "bandbediening") {
-        allowedSwitches = ["geen"];
-    }
-
-    // Filter opties
-    options.forEach(option => {
-        if (!allowedSwitches.includes(option.value)) {
-            option.style.display = 'none';
-        }
+    // Voeg alleen toegestane opties toe
+    const allowedSwitches = switchOptions[motorType] || [];
+    allowedSwitches.forEach(optionData => {
+        const option = document.createElement('option');
+        option.value = optionData.value;
+        option.textContent = optionData.text;
+        switchType.appendChild(option);
     });
 
-    // Reset schakelaar naar "geen"
+    // Reset de geselecteerde waarde
     switchType.value = "geen";
-
-    // Forceer hertekening voor Safari
-    switchType.style.display = 'none';
-    switchType.offsetHeight; // Trigger hertekening
-    switchType.style.display = '';
 
     // Controleer en pas breedte aan als nodig
     const widthInput = document.getElementById('width');
@@ -82,10 +77,10 @@ function updateSwitchOptions() {
     const maxWidth = motorType === "bandbediening" ? 320 : null;
     if (parseFloat(widthInput.value) < minWidth) {
         widthInput.value = minWidth;
-        showAdjustmentMessage(motorTypeElement, `De breedte is aangepast naar ${minWidth} cm om te voldoen aan de minimale vereisten.`);
+        showAdjustmentMessage(document.getElementById('motor-type'), `De breedte is aangepast naar ${minWidth} cm om te voldoen aan de minimale vereisten.`);
     } else if (maxWidth && parseFloat(widthInput.value) > maxWidth) {
         widthInput.value = maxWidth;
-        showAdjustmentMessage(motorTypeElement, `De breedte is aangepast naar ${maxWidth} cm om te voldoen aan de maximale vereisten.`);
+        showAdjustmentMessage(document.getElementById('motor-type'), `De breedte is aangepast naar ${maxWidth} cm om te voldoen aan de maximale vereisten.`);
     }
 }
 
