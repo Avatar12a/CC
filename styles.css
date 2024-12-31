@@ -290,6 +290,12 @@ nav ul li a i {
         gap: 20px;
     }
 
+    .form-group input,
+    .form-group select {
+        max-width: calc(100% - 20px); /* Zorg dat de velden binnen de container blijven */
+        margin: auto;
+    }
+
     .configurator-container {
         margin-top: 10px;
         padding: 15px;
