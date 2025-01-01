@@ -181,6 +181,13 @@ nav ul li a i {
     cursor: pointer;
 }
 
+@media (min-width: 768px) {
+    .cart-button {
+        display: none;
+    }
+}
+
+
 /* Container voor de info blokken */
 .info-container {
     display: flex;
