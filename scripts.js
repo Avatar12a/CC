@@ -274,7 +274,7 @@ function addToCart() {
 
     const motorType = document.getElementById('motor-type').value;
     const switchType = document.getElementById('switch-type').value;
-    const falseWindowsill = document.getElementById('falseWindowsill').value;
+    const falseWindowsill = document.getElementById('false-windowsill').value;
     const installation = document.getElementById('installation').value;
     const operationSide = document.getElementById('operation-side').value;
     const casingColor = document.getElementById('casing-color').value;
@@ -348,7 +348,6 @@ function addToCart() {
     }
 
     updateCart();
-    updateMiniCartButton();
 
     // Toon succesmelding
     successMessage.innerText = "Succesvol toegevoegd aan winkelwagen!";
@@ -357,7 +356,105 @@ function addToCart() {
 }
 
 // Winkelwagen updaten
+// Product toevoegen aan winkelwagen
+function addToCart() {
+    console.log("addToCart aangeroepen"); // Debugging
+    const widthInput = document.getElementById('width');
+    const heightInput = document.getElementById('height');
+    const width = parseFloat(widthInput?.value) || 0;
+    const height = parseFloat(heightInput?.value) || 0;
+
+    const motorType = document.getElementById('motor-type')?.value || '';
+    const switchType = document.getElementById('switch-type')?.value || '';
+    const falseWindowsill = document.getElementById('falseWindowsill')?.value || '';
+    const installation = document.getElementById('installation')?.value || '';
+    const operationSide = document.getElementById('operation-side')?.value || '';
+    const casingColor = document.getElementById('casing-color')?.value || '';
+    const guideColor = document.getElementById('guide-color')?.value || '';
+    const slatColor = document.getElementById('slat-color')?.value || '';
+    const casingType = document.getElementById('casing-type')?.value || '';
+    const guideType = document.getElementById('guide-type')?.value || '';
+
+    const inputErrorMessage = document.getElementById('input-error-message');
+    const successMessage = document.getElementById('success-message');
+
+    // Reset foutmeldingen en stijlen
+    inputErrorMessage?.classList.add('hidden');
+
+    // Controleer invoer
+    if (!width || !height) {
+        if (inputErrorMessage) {
+            inputErrorMessage.innerText = "Voer zowel breedte als hoogte in.";
+            inputErrorMessage.classList.remove('hidden');
+            setTimeout(() => inputErrorMessage.classList.add('hidden'), 3000);
+        }
+        return;
+    }
+
+    // Bereken prijs
+    const price = calculatePrice();
+    if (!price) return;
+
+    const formattedMotorType = motorType
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+
+    const item = {
+        name: `Aluprof Rolluik (${formattedMotorType})`,
+        width,
+        height,
+        motorType,
+        switchType,
+        falseWindowsill,
+        installation,
+        operationSide,
+        casingColor,
+        guideColor,
+        slatColor,
+        casingType,
+        guideType,
+        price: price.toFixed(2),
+        quantity: 1
+    };
+
+    console.log("Product item:", item); // Debugging
+
+    const existingItemIndex = cart.findIndex(cartItem => {
+        return cartItem.width === item.width &&
+            cartItem.height === item.height &&
+            cartItem.motorType === item.motorType &&
+            cartItem.switchType === item.switchType &&
+            cartItem.falseWindowsill === item.falseWindowsill &&
+            cartItem.installation === item.installation &&
+            cartItem.operationSide === item.operationSide &&
+            cartItem.casingColor === item.casingColor &&
+            cartItem.guideColor === item.guideColor &&
+            cartItem.slatColor === item.slatColor &&
+            cartItem.casingType === item.casingType &&
+            cartItem.guideType === item.guideType;
+    });
+
+    if (existingItemIndex !== -1) {
+        cart[existingItemIndex].quantity++;
+    } else {
+        cart.push(item);
+    }
+
+    console.log("Cart array na toevoegen:", cart); // Debugging
+    updateCart();
+
+    // Toon succesmelding
+    if (successMessage) {
+        successMessage.innerText = "Succesvol toegevoegd aan winkelwagen!";
+        successMessage.classList.remove('hidden');
+        setTimeout(() => successMessage.classList.add('hidden'), 3000);
+    }
+}
+
+// Winkelwagen updaten
 function updateCart() {
+    console.log("updateCart aangeroepen"); // Debugging
     const cartItems = document.getElementById('cart-items');
     if (!cartItems) {
         console.error("Winkelwagencontainer niet gevonden!");
@@ -387,60 +484,24 @@ function updateCart() {
         total += item.price * item.quantity;
     });
 
-    document.getElementById('total-price').innerText = `Totaal: €${total.toFixed(2)}`;
-    updateMiniCartButton();
-}
-
-// Item verwijderen
-function removeItem(index) {
-    cart.splice(index, 1);
-    updateCart();
-    updateMiniCartButton();
-}
-
-// Hoeveelheid verhogen
-function incrementItem(index) {
-    cart[index].quantity++;
-    updateCart();
-    updateMiniCartButton();
-}
-
-// Hoeveelheid verlagen
-function decrementItem(index) {
-    if (cart[index].quantity > 1) {
-        cart[index].quantity--;
-    } else {
-        removeItem(index);
+    console.log("Totaal na updateCart:", total); // Debugging
+    const totalPriceElement = document.getElementById('total-price');
+    if (totalPriceElement) {
+        totalPriceElement.innerText = `Totaal: €${total.toFixed(2)}`;
     }
-    updateCart();
+
     updateMiniCartButton();
 }
 
-// Mini-winkelwagenknop bijwerken
+// Controleer of mini-winkelwagen wordt bijgewerkt
 function updateMiniCartButton() {
-    const cartButton = document.getElementById('cart-button'); // Mini-winkelwagenknop
-    if (!cartButton) return;
-
-    // Bereken het totale aantal producten in de winkelwagen
-    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    // Update alleen het aantal producten op de knop
-    cartButton.innerHTML = `🛒 ${totalItems} producten`;
-}
-
-// Eventlisteners voor directe prijsupdate
-const inputsToUpdatePrice = [
-    'width', 'height', 'motor-type', 'switch-type', 'falseWindowsill', 'installation', 'operation-side', 'casing-color', 'guide-color', 'slat-color', 'casing-type', 'guide-type'
-];
-
-inputsToUpdatePrice.forEach(id => {
-    const element = document.getElementById(id);
-    if (element) {
-        element.addEventListener('input', () => {
-            calculatePrice();
-            if (id === 'width' || id === 'height') {
-                element.style.borderColor = ''; // Reset rode rand bij invoer
-            }
-        });
+    const cartButton = document.getElementById('cart-button');
+    if (!cartButton) {
+        console.warn("Cart button niet gevonden!");
+        return;
     }
-});
+
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartButton.innerHTML = `🛒 ${totalItems} producten`;
+    console.log("Mini-winkelwagen bijgewerkt:", totalItems); // Debugging
+}
