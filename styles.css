@@ -47,12 +47,6 @@ body {
     display: none;
 }
 
-/* Formulier veld met rode rand bij fout */
-input[type="number"].error,
-select.error {
-    border: 2px solid red;
-}
-
 /* Menu Header */
 header {
     background-color: #ff8c00;
@@ -61,17 +55,14 @@ header {
     justify-content: space-between;
     align-items: center;
     color: white;
-    height: auto;
-    flex-wrap: wrap; /* Zorg dat elementen naar de volgende regel kunnen gaan */
-}
-
-header .logo {
-    display: block;
+    height: 65px;
+    position: relative;
 }
 
 header .logo img {
-    max-height: 65px; /* Beperk de hoogte van het logo */
-    margin: 0 auto; /* Centreer het logo */
+    max-height: 140px;
+    position: absolute;
+    top: -35px;
 }
 
 nav ul {
@@ -79,7 +70,6 @@ nav ul {
     display: flex;
     gap: 20px;
     padding: 0;
-    flex-wrap: wrap; /* Laat navigatie naar de volgende regel gaan op kleine schermen */
 }
 
 nav ul li a {
@@ -300,16 +290,6 @@ nav ul li a i {
         margin-top: 10px;
         padding: 15px;
         gap: 10px;
-    }
-
-    .mini-cart {
-        display: block; /* Toon mini winkelwagen */
-    }
-}
-
-@media (min-width: 769px) {
-    .mini-cart {
-        display: none; /* Verberg mini winkelwagen op grotere schermen */
     }
 }
 
