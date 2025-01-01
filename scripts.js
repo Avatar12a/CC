@@ -493,15 +493,21 @@ function updateCart() {
     updateMiniCartButton();
 }
 
-// Controleer of mini-winkelwagen wordt bijgewerkt
 function updateMiniCartButton() {
     const cartButton = document.getElementById('cart-button');
+
+    // Controleer of de knop aanwezig is
     if (!cartButton) {
         console.warn("Cart button niet gevonden!");
         return;
     }
 
+    // Bereken het totale aantal items en prijs
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartButton.innerHTML = `🛒 ${totalItems} producten`;
-    console.log("Mini-winkelwagen bijgewerkt:", totalItems); // Debugging
+    const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    // Update de inhoud van de knop
+    cartButton.innerHTML = `🛒 ${totalItems} producten - €${totalPrice.toFixed(2)}`;
+    console.log("Mini-winkelwagen bijgewerkt:", { totalItems, totalPrice });
 }
+
