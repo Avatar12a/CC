@@ -181,12 +181,31 @@ nav ul li a i {
     cursor: pointer;
 }
 
+/* Winkelwagen Scrollbaar */
+#cart-items {
+    max-height: 400px; /* Beperk de maximale hoogte */
+    overflow-y: auto; /* Maak de inhoud scrollbaar */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Optionele styling voor de titel */
+#cart-items h2 {
+    margin-top: 0;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
 @media (min-width: 768px) {
     .cart-button {
         display: none;
     }
 }
-
 
 /* Container voor de info blokken */
 .info-container {
