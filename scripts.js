@@ -356,6 +356,32 @@ function addToCart() {
 }
 
 // Winkelwagen updaten
+function updateCartButton() {
+    const totalPrice = document.getElementById('total-price').textContent || '€0.00';
+    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0); // Bereken totale hoeveelheid
+    const cartButton = document.querySelector('.cart-button');
+    if (cartButton) {
+        cartButton.innerHTML = `Winkelwagen (${totalPrice}, ${totalQuantity} producten)`; // Gebruik totale hoeveelheid
+    }
+}
+
+// Hoeveelheid verhogen
+function incrementItem(index) {
+    cart[index].quantity++;
+    updateCart();
+}
+
+// Hoeveelheid verlagen
+function decrementItem(index) {
+    if (cart[index].quantity > 1) {
+        cart[index].quantity--;
+    } else {
+        removeItem(index);
+    }
+    updateCart();
+}
+
+// Winkelwagen updaten
 function updateCart() {
     const cartItems = document.getElementById('cart-items');
     if (!cartItems) {
@@ -395,6 +421,7 @@ function removeItem(index) {
     cart.splice(index, 1);
     updateCart();
 }
+
 
 // Hoeveelheid verhogen
 function incrementItem(index) {
