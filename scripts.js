@@ -274,7 +274,7 @@ function addToCart() {
 
     const motorType = document.getElementById('motor-type').value;
     const switchType = document.getElementById('switch-type').value;
-    const falseWindowsill = document.getElementById('false-windowsill').value;
+    const falseWindowsill = document.getElementById('falseWindowsill').value;
     const installation = document.getElementById('installation').value;
     const operationSide = document.getElementById('operation-side').value;
     const casingColor = document.getElementById('casing-color').value;
@@ -348,37 +348,12 @@ function addToCart() {
     }
 
     updateCart();
+    updateMiniCartButton();
 
     // Toon succesmelding
     successMessage.innerText = "Succesvol toegevoegd aan winkelwagen!";
     successMessage.classList.remove('hidden');
     setTimeout(() => successMessage.classList.add('hidden'), 3000);
-}
-
-// Winkelwagen updaten
-function updateCartButton() {
-    const totalPrice = document.getElementById('total-price').textContent || '€0.00';
-    const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0); // Bereken totale hoeveelheid
-    const cartButton = document.querySelector('.cart-button');
-    if (cartButton) {
-        cartButton.innerHTML = `Winkelwagen (${totalPrice}, ${totalQuantity} producten)`; // Gebruik totale hoeveelheid
-    }
-}
-
-// Hoeveelheid verhogen
-function incrementItem(index) {
-    cart[index].quantity++;
-    updateCart();
-}
-
-// Hoeveelheid verlagen
-function decrementItem(index) {
-    if (cart[index].quantity > 1) {
-        cart[index].quantity--;
-    } else {
-        removeItem(index);
-    }
-    updateCart();
 }
 
 // Winkelwagen updaten
@@ -406,27 +381,28 @@ function updateCart() {
                     <button onclick="incrementItem(${index})">+</button>
                 </div>
             </div>
-            <button class="remove-item delete-btn" onclick="removeItem(${index})">&times;</button>
+            <button class="remove-item delete-btn" onclick="removeItem(${index})">&#10005;</button>
         `;
         cartItems.appendChild(cartItem);
         total += item.price * item.quantity;
     });
 
     document.getElementById('total-price').innerText = `Totaal: €${total.toFixed(2)}`;
-    updateCartButton(); // Zorg dat de knop wordt bijgewerkt
+    updateMiniCartButton();
 }
 
 // Item verwijderen
 function removeItem(index) {
     cart.splice(index, 1);
     updateCart();
+    updateMiniCartButton();
 }
-
 
 // Hoeveelheid verhogen
 function incrementItem(index) {
     cart[index].quantity++;
     updateCart();
+    updateMiniCartButton();
 }
 
 // Hoeveelheid verlagen
@@ -437,30 +413,34 @@ function decrementItem(index) {
         removeItem(index);
     }
     updateCart();
+    updateMiniCartButton();
 }
 
-// Winkelwagenknop bijwerken
-function updateCartButton() {
-    const totalPrice = document.getElementById('total-price').textContent || '€0.00';
-    const cartItems = document.querySelectorAll('#cart-items .cart-item').length;
-    const cartButton = document.querySelector('.cart-button');
-    if (cartButton) {
-        cartButton.innerHTML = `Winkelwagen (${totalPrice}, ${cartItems} producten)`;
+// Mini-winkelwagenknop bijwerken
+function updateMiniCartButton() {
+    const cartButton = document.getElementById('cart-button'); // Mini-winkelwagenknop
+    if (!cartButton) return;
+
+    // Bereken het totale aantal producten in de winkelwagen
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    // Update alleen het aantal producten op de knop
+    cartButton.innerHTML = `🛒 ${totalItems} producten`;
+}
+
+// Eventlisteners voor directe prijsupdate
+const inputsToUpdatePrice = [
+    'width', 'height', 'motor-type', 'switch-type', 'falseWindowsill', 'installation', 'operation-side', 'casing-color', 'guide-color', 'slat-color', 'casing-type', 'guide-type'
+];
+
+inputsToUpdatePrice.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.addEventListener('input', () => {
+            calculatePrice();
+            if (id === 'width' || id === 'height') {
+                element.style.borderColor = ''; // Reset rode rand bij invoer
+            }
+        });
     }
-}
-
-// Winkelwagen openen/sluiten voor kleine schermen
-function openCart() {
-    const cartSidebar = document.querySelector('.cart-sidebar');
-    if (cartSidebar) {
-        cartSidebar.classList.toggle('hidden');
-    }
-}
-
-// Eventlistener voor winkelwagenknop bijwerken
-document.addEventListener('DOMContentLoaded', () => {
-    updateCartButton();
-    document.getElementById('add-to-cart-button').addEventListener('click', () => {
-        updateCartButton();
-    });
 });
