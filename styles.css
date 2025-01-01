@@ -301,6 +301,16 @@ nav ul li a i {
         padding: 15px;
         gap: 10px;
     }
+
+    .mini-cart {
+        display: block; /* Toon mini winkelwagen */
+    }
+}
+
+@media (min-width: 769px) {
+    .mini-cart {
+        display: none; /* Verberg mini winkelwagen op grotere schermen */
+    }
 }
 
 /* Formuliergroepen */
